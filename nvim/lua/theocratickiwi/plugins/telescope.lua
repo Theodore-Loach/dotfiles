@@ -15,7 +15,7 @@ return {
 		vim.keymap.set('n', '<leader>ps', function() 
 			builtin.grep_string({ search = vim.fn.input("Grep > ") }); 
 		end)
-		
+
 		harpoon:setup({})
 
 		local conf = require("telescope.config").values
@@ -32,6 +32,14 @@ return {
 				}),
 				previewer = conf.file_previewer({}),
 				sorter = conf.generic_sorter({}),
+				attach_mappings = function(_, map)
+					map('i', '<C-d>', function(prompt_bufnr)
+						local selection = require("telescope.actions.state").get_selected_entry()
+						require("telescope.actions").close(prompt_bufnr)
+						harpoon:list():remove(selection.filename)
+					end)
+					return true
+				end
 			}):find()
 		end
 
