@@ -39,7 +39,7 @@ return {
 				lualine_a = {"tabs"}
 			},
 			extensions = {
-				'nvim-tree'
+				'neo-tree'
 			}
 		}
 	end,

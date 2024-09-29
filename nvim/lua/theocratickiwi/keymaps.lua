@@ -1,5 +1,5 @@
-vim.g.mapleader = " ",
-vim.api.nvim_set_keymap('n', '<leader>pv', ':NvimTreeFindFileToggle<CR>', { noremap = true, silent = true })
+vim.g.mapleader = " "
+vim.api.nvim_set_keymap('n', '<leader>pv', ':Neotree filesystem reveal left<CR>', {})
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
