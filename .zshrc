@@ -128,3 +128,6 @@ export PATH="/opt/nvim-linux64/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Add Snap to $PATH:
+export PATH=$PATH:/snap/bin

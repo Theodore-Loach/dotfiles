@@ -7,15 +7,8 @@ return {
 	config = function()
 		require("telescope").setup({
 			defaults = {
-				layout_strategy = "vertical",
 				layout_config = {
 					preview_cutoff = 1,
-					width = 0.75,
-					height = 0.9,
-					prompt_position = "top",
-					vertical = {
-						preview_height = 0.5,
-					},
 				},
 				file_previewer = require("telescope.previewers").vim_buffer_cat.new,
 				grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,

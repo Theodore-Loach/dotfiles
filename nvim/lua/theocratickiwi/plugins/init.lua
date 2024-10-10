@@ -1,8 +1,9 @@
 return{
-    { import = "theocratickiwi.plugins.nvim-cmp"            },
+    { import = "theocratickiwi.plugins.nvim-dap"            },
     { import = "theocratickiwi.plugins.none-ls"             },
     { import = "theocratickiwi.plugins.vim-tmux-navigator"  },
 	{ import = "theocratickiwi.plugins.lsp"		            },
+    { import = "theocratickiwi.plugins.nvim-cmp"            },
 	{ import = "theocratickiwi.plugins.vim-fugitive"        },
 	{ import = "theocratickiwi.plugins.undotree"	        },
 	{ import = "theocratickiwi.plugins.neo-tree"	        },
