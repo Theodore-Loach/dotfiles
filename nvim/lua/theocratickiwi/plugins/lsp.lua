@@ -23,6 +23,8 @@ return {
 				"pyright", -- Python
 				"lua_ls", --lua
 				"zls", --zig
+                "omnisharp", --c#
+                "intelephense", --php
 			})
 
 			-- Attach keymaps and add cmp capabilities
