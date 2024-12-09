@@ -132,7 +132,10 @@ export PATH="/opt/nvim-linux64/bin:$PATH"
 # Add Snap to $PATH:
 export PATH=$PATH:/snap/bin
 
+# Add laravel:
+export PATH="$PATH:/home/ubuntu/.config/composer/vendor/bin"
+
 # Maven
-export M2_HOME=/usr/local/apache-maven
-export MAVEN_HOME=/usr/local/apache-maven
-export PATH=$M2_HOME/bin:$PATH
+# export M2_HOME=/usr/local/apache-maven
+# export MAVEN_HOME=/usr/local/apache-maven
+# export PATH=$M2_HOME/bin:$PATH

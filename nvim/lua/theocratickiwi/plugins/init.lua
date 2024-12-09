@@ -12,4 +12,6 @@ return{
 	{ import = "theocratickiwi.plugins.treesitter" 	        },
 	{ import = "theocratickiwi.plugins.catppuccin" 	        },
     { import = "theocratickiwi.plugins.alpha-nvim"          },
+    { import = "theocratickiwi.plugins.blade"               },
+    { import = "theocratickiwi.plugins.colorizer"           },
 }

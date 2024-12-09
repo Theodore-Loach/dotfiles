@@ -5,3 +5,11 @@ require("theocratickiwi.set")
 --Disable Newtr
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.blade.php",
+  callback = function()
+    vim.bo.filetype = "blade"
+  end,
+})
