@@ -49,3 +49,9 @@ vim.keymap.set('n', '<leader>Y', '"+Y', { desc = 'Yank line to system clipboard'
 vim.keymap.set({'n', 'v'}, '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
 vim.keymap.set('n', '<leader>P', '"+P', { desc = 'Paste before from system clipboard' })
 
+-- Shortcuts for Code navigation with LSP and Telescope
+vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', { desc = 'Go to definition' })
+vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', { desc = 'Go to implementation' })
+vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<CR>', { desc = 'Go to references' })
+vim.keymap.set('n', '<leader>ws', '<cmd>Telescope lsp_workspace_symbols<CR>', { desc = 'Search workspace symbols' })
+vim.keymap.set('n', '<leader>ds', '<cmd>Telescope lsp_document_symbols<CR>', { desc = 'Search document symbols' })

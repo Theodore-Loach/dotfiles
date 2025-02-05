@@ -139,3 +139,14 @@ export PATH="$PATH:/home/ubuntu/.config/composer/vendor/bin"
 # export M2_HOME=/usr/local/apache-maven
 # export MAVEN_HOME=/usr/local/apache-maven
 # export PATH=$M2_HOME/bin:$PATH
+
+#Functions for easy copy and paste
+function copyfile() {
+    realpath "$1" | xclip -selection clipboard
+}
+
+function pastefile() {
+    cp $(xclip -o -selection clipboard) .
+}
+
+alias sail='[ -f sail ] && bash sail || bash ./vendor/bin/sail'

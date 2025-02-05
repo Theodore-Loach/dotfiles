@@ -20,6 +20,7 @@ return {
                 "omnisharp", --c#
                 "intelephense", --php
                 "tailwindcss", -- Tailwind CSS
+                "pyright", -- Python
             })
 
             lsp.configure("intelephense", {
