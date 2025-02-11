@@ -12,11 +12,11 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
---When suing search terms, keeps cursor centered while moving to next instance.
+--When using search terms, keeps cursor centered while moving to next instance.
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
---When pasting over another word in visual mode, keep the origonal word.
+--When pasting over another word in visual mode, keep the original word.
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 --System clipboard yanking (pretty sure i have somthing else that makes all yanking got to system clipboard anyway)
