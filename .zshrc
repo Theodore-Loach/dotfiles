@@ -150,3 +150,6 @@ function pastefile() {
 }
 
 alias sail='[ -f sail ] && bash sail || bash ./vendor/bin/sail'
+alias lzd='lazydocker'
+export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:$HOME/go/bin
