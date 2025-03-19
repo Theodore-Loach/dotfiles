@@ -14,4 +14,9 @@ return{
     { import = "theocratickiwi.plugins.alpha-nvim"          },
     { import = "theocratickiwi.plugins.blade"               },
     { import = "theocratickiwi.plugins.colorizer"           },
+    { import = "theocratickiwi.plugins.comment"             },
+    { import = "theocratickiwi.plugins.image"               },
+    { import = "theocratickiwi.plugins.molten"              },
+    { import = "theocratickiwi.plugins.quarto"              },
+    { import = "theocratickiwi.plugins.jupytext"            },
 }
