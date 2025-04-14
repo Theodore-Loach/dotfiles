@@ -1,0 +1,98 @@
+{
+    // Editor and VIM
+    "editor.lineNumbers": "relative",
+    "vim.leader" : "<Space>",
+    "vim.hlsearch" : true,
+
+    // VIM keymappings
+    "vim.normalModeKeyBindingsNonRecursive" : [
+
+        // Navigation:
+
+        // switch buffers/tabs
+        { "before": ["<S-h>"], "commands": [":bprevious"]},
+        { "before": ["<S-l>"], "commands": [":bnext"]},
+
+        // splits
+        { "before" : ["leader", "v"], "commands": [":vsplit"]},
+        { "before" : ["leader", "s"], "commands" : [":split"]},
+
+        // panes
+        {
+            "before" : ["leader", "h"],
+            "commands" : ["workbench.action.focusLeftGroup"]
+        },
+        {
+            "before" : ["leader", "j"],
+            "commands" : ["workbench.action.focusBelowGroup"]
+        },
+        {
+            "before" : ["leader", "k"],
+            "commands" : ["workbench.action.focusAboveGroup"]
+        },
+        {
+            "before" : ["leader", "l"],
+            "commands" : ["workbench.action.focusRightGroup"]
+        },
+
+        // errors/warnings
+        {
+            "before" : ["[", "d"],
+            "command" : ["editor.action.marker.prev"]
+        },
+        {
+            "before" : ["]", "d"],
+            "command" : ["editor.action.marker.next"]
+        },
+
+        //End Navigation
+        
+        // Quick Fix Menu
+        {
+            "before" : ["leader", "c", "a"],
+            "commands" : ["editor.action.quickFix"]
+        },
+
+        // Quick File Search
+        {
+            "before" : ["leader", "f"],
+            "commands" : ["workbench.action.quickOpen"]
+        },
+
+        // Format Document
+        {   
+            "before" : ["leader", "p"],
+            "commands" : ["editor.action.formatDocument"]
+        }
+    ],
+
+    "vim.visualModeKeyBindings": [
+        //Indenting while in visual mode
+        { "before" : ["<"], "commands" : ["editor.action.outdentLines"]},
+        { "before" : [">"], "commands" : ["editor.action.indentlines"]},
+
+        //Move selected lines while in visual mode
+        { "before" : ["J"], "commands" : ["editor.action.moveLinesDownAction"]},
+        { "before" : ["K"], "commands" : ["editor.action.moveLinesUpAction"]},
+
+        //Toggle Comments
+        { "before" : ["leader", "c"], "commands" : ["editor.action.commentLine"]}
+    ],
+
+    // Font
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "Fira Code",
+
+    // Visual Settings - VSCode
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active",
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "terminal.integrated.fontFamily": "Fira Code ",
+    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    "workbench.preferredHighContrastColorTheme": "Catppuccin Mocha",
+    "workbench.preferredHighContrastLightColorTheme": "Catppuccin Mocha",
+    "workbench.preferredLightColorTheme": "Catppuccin Mocha",
+    "window.titleBarStyle": "custom",
+    "git.confirmSync": false,
+    "editor.minimap.enabled": false,
+}
