@@ -55,3 +55,6 @@ vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', { desc = 'Go
 vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<CR>', { desc = 'Go to references' })
 vim.keymap.set('n', '<leader>ws', '<cmd>Telescope lsp_workspace_symbols<CR>', { desc = 'Search workspace symbols' })
 vim.keymap.set('n', '<leader>ds', '<cmd>Telescope lsp_document_symbols<CR>', { desc = 'Search document symbols' })
+
+-- Open Diagnositc Floating Window
+vim.keymap.set('n', 'K', vim.diagnostic.open_float)
