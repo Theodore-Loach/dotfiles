@@ -96,6 +96,19 @@ return {
 										"laravel-ide-helper",
 										"auth",
 									},
+                                    diagnostics = {
+                                        enable = true,
+                                        run = "onType",
+                                        embeddedLanguages = true,
+                                    },
+                                    completion = {
+                                        insertUseDeclaration = true,
+                                        fullyQualifyGlobalConstantsAndFunctions = false,
+                                    },
+                                    enviroment = {
+                                        documentRoot = vim.fn.getcwd(),
+                                        includePaths = { vim.fn.getcwd() .. "/vendor"},
+                                    },
 								},
 							},
 						})
