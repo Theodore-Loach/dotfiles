@@ -21,4 +21,5 @@ return{
     { import = "theocratickiwi.plugins.codecompanion"       },
     { import = "theocratickiwi.plugins.column-vert"         },
     { import = "theocratickiwi.plugins.snacks"              },
+    { import = "theocratickiwi.plugins.aerial"              },
 }

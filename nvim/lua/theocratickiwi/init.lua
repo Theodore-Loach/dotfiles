@@ -6,6 +6,7 @@ vim.opt.termguicolors = true
 require("theocratickiwi.lazy")
 require("theocratickiwi.keymaps")
 require("theocratickiwi.set")
+vim.opt.termguicolors = true
 vim.cmd.colorscheme("onedark")
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
