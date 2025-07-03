@@ -77,17 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-plugins=(git zsh-autosuggestions)
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-plugins=(git sudo)
-plugins=(git docker)
-plugins=(git npm node)
-plugins=(git pip)
-plugins=(git virtualenv)
-plugins=(git fzf)
-plugins=(git history)
-plugins=(git tmux)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting sudo docker npm node pip virtualenv fzf history tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -153,4 +143,4 @@ alias sail='[ -f sail ] && bash sail || bash ./vendor/bin/sail'
 alias lzd='lazydocker'
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:$HOME/go/bin
-export ANTHROPIC_API_KEY="anthorpic-api-key-here"
+export ANTHROPIC_API_KEY=$(cat ~/dotfiles/.anthropic_key)
