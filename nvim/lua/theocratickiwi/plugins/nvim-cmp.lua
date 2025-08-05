@@ -11,8 +11,13 @@ return {
     },
     {
         "hrsh7th/nvim-cmp",
+        dependencies = {
+            { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+            { "onsails/lspkind.nvim" }, -- Optional: For VSCode-like pictograms
+        },
         config = function()
             local cmp = require("cmp")
+            local lspkind = require("lspkind")
             require("luasnip.loaders.from_vscode").lazy_load()
 
             cmp.setup({
@@ -33,11 +38,24 @@ return {
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
+                    { name = "nvim_lsp" },
                     { name = "luasnip" },
                 }, {
                     { name = "buffer" },
                 }),
+                formatting = {
+                    format = function(entry, item)
+                        -- Optional: Use lspkind for icons
+                        item = lspkind.cmp_format({
+                            mode = "symbol_text",
+                            maxwidth = 50,
+                            ellipsis_char = "...",
+                        })(entry, item)
+
+                        -- Add Tailwind CSS colors to the completion menu
+                        return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+                    end,
+                },
             })
         end,
     },

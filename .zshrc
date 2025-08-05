@@ -77,17 +77,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-plugins=(git zsh-autosuggestions)
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-plugins=(git sudo)
-plugins=(git docker)
-plugins=(git npm node)
-plugins=(git pip)
-plugins=(git virtualenv)
-plugins=(git fzf)
-plugins=(git history)
-plugins=(git tmux)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting sudo docker npm node pip virtualenv fzf history tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -132,7 +122,25 @@ export PATH="/opt/nvim-linux64/bin:$PATH"
 # Add Snap to $PATH:
 export PATH=$PATH:/snap/bin
 
+# Add laravel:
+export PATH="$PATH:/home/ubuntu/.config/composer/vendor/bin"
+
 # Maven
-export M2_HOME=/usr/local/apache-maven
-export MAVEN_HOME=/usr/local/apache-maven
-export PATH=$M2_HOME/bin:$PATH
+# export M2_HOME=/usr/local/apache-maven
+# export MAVEN_HOME=/usr/local/apache-maven
+# export PATH=$M2_HOME/bin:$PATH
+
+#Functions for easy copy and paste
+function copyfile() {
+    realpath "$1" | xclip -selection clipboard
+}
+
+function pastefile() {
+    cp $(xclip -o -selection clipboard) .
+}
+
+alias sail='[ -f sail ] && bash sail || bash ./vendor/bin/sail'
+alias lzd='lazydocker'
+export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:$HOME/go/bin
+export ANTHROPIC_API_KEY=$(cat ~/dotfiles/.anthropic_key)

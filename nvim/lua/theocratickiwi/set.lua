@@ -30,5 +30,5 @@ vim.opt.updatetime = 50
 
 vim.g.mapleader = " " 
 
-
+vim.opt.clipboard:append('unnamedplus')
 
