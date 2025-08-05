@@ -575,8 +575,6 @@ display_final_messages() {
     echo "  - Languages: Zig, PHP, JS/TS, Python 3, C/C++, Ruby, Go, Rust are installed"
     echo "  - Tmux: TPM installed. Use 'Prefix + I' to install plugins, 'Prefix + U' to update them"
     echo "  - Your tmux prefix is set to Ctrl+Space (not the default Ctrl+b)"
-    echo "  - Git: Use 'lazygit' command for a better Git experience"
-    echo "  - Monitoring: Use 'bpytop' for enhanced system monitoring"
     
     if [[ "$env_type" == "desktop" ]]; then
         echo "  - Kitty: Terminal emulator installed with desktop integration"
