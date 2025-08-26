@@ -1,14 +1,45 @@
 return {
 	"olimorris/codecompanion.nvim",
     keys = {
+        -- EXISTING CHAT KEYMAPS
         { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion Chat" },
         { "<leader>cn", "<cmd>CodeCompanionChat<cr>", desc = "New Code Companion Chat"},
-        { "<leader>ce", "<cmd>CodeCompanionActions<cr>", mode={"n", "v"}, desc = "Code Companion Chat"},
+        { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode="v", desc = "Code Companion Actions"},
+        
+        -- ✨ ENHANCED INLINE EDITING KEYMAPS WITH NOTIFICATIONS
+        { "<leader>ci", function()
+            vim.ui.input({ prompt = "CodeCompanion instruction: " }, function(input)
+                if input and input ~= "" then
+                    -- Show start notification
+                    vim.notify("🤖 CodeCompanion processing: " .. input, vim.log.levels.INFO)
+                    vim.cmd("'<,'>CodeCompanion " .. input)
+                end
+            end)
+        end, mode = "v", desc = "Custom CodeCompanion Prompt" },
+        
+        { "<leader>cf", function()
+            vim.notify("🔧 CodeCompanion fixing code...", vim.log.levels.INFO)
+            vim.cmd("'<,'>CodeCompanion /fix")
+        end, mode = "v", desc = "Fix Selected Code" },
+        
+        { "<leader>ce", function()
+            vim.notify("💡 CodeCompanion explaining code...", vim.log.levels.INFO)
+            vim.cmd("'<,'>CodeCompanion /explain")
+        end, mode = "v", desc = "Explain Selected Code" },
+        
+        { "<leader>cr", function()
+            vim.notify("♻️ CodeCompanion refactoring code...", vim.log.levels.INFO)
+            vim.cmd("'<,'>CodeCompanion /refactor")
+        end, mode = "v", desc = "Refactor Selected Code" },
+        
+        -- ✨ ACCEPT/REJECT CHANGES (built-in keymaps, just documented here)
+        -- ga - Accept changes (built-in)
+        -- gr - Reject changes (built-in)
     },
-	opts = {
-		extensions = {
-			history = {
-				enabled = true,
+    opts = {
+        extensions = {
+            history = {
+                enabled = true,
 				opts = {
 					keymap = "gh",
 					save_chat_keymap = "sc",
@@ -26,6 +57,9 @@ return {
 			inline = {
 				adapter = "anthropic",
 			},
+            opts = {
+                log_level = "DEBUG",
+            },
 		},
 		display = {
 			diff = {
