@@ -223,6 +223,89 @@ install_kitty() {
     fi
 }
 
+# Function to install Neovim from source
+install_neovim_from_source() {
+    print_status "Installing Neovim from source (latest master)..."
+    
+    # Install build dependencies
+    print_status "Installing Neovim build dependencies..."
+    sudo apt install -y \
+        ninja-build \
+        gettext \
+        libtool \
+        libtool-bin \
+        autoconf \
+        automake \
+        pkg-config \
+        unzip \
+        curl \
+        doxygen \
+        libluajit-5.1-dev
+    
+    # Check if nvim is already installed and get version info
+    if command_exists nvim; then
+        current_version=$(nvim --version | head -n1 | cut -d' ' -f2)
+        print_status "Current Neovim version: $current_version"
+        
+        # Ask if user wants to rebuild/update
+        while true; do
+            read -p "Neovim is already installed. Rebuild from latest source? (y/n): " rebuild_choice < /dev/tty
+            case "$rebuild_choice" in
+                [Yy]*) break ;;
+                [Nn]*) print_success "Keeping existing Neovim installation"; return ;;
+                *) print_error "Please answer yes or no" ;;
+            esac
+        done
+    fi
+    
+    # Create temporary build directory
+    BUILD_DIR="/tmp/neovim-build"
+    print_status "Creating build directory: $BUILD_DIR"
+    rm -rf "$BUILD_DIR"
+    mkdir -p "$BUILD_DIR"
+    cd "$BUILD_DIR"
+    
+    # Clone Neovim repository
+    print_status "Cloning Neovim repository (master branch)..."
+    git clone --depth 1 https://github.com/neovim/neovim.git
+    cd neovim
+    
+    # Get commit info for reference
+    commit_hash=$(git rev-parse --short HEAD)
+    commit_date=$(git log -1 --format=%cd --date=short)
+    print_status "Building Neovim commit: $commit_hash ($commit_date)"
+    
+    # Build Neovim
+    print_status "Building Neovim (this may take several minutes)..."
+    make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/usr/local
+    
+    # Install Neovim
+    print_status "Installing Neovim system-wide..."
+    sudo make install
+    
+    # Cleanup
+    print_status "Cleaning up build directory..."
+    cd /
+    rm -rf "$BUILD_DIR"
+    
+    # Verify installation
+    if command_exists nvim; then
+        new_version=$(nvim --version | head -n1)
+        print_success "Neovim installed successfully!"
+        print_success "Version: $new_version"
+        print_status "Commit: $commit_hash ($commit_date)"
+    else
+        print_error "Neovim installation failed!"
+        return 1
+    fi
+    
+    # Update alternatives (in case system had vim installed)
+    print_status "Setting up alternatives for vi/vim..."
+    sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 60
+    sudo update-alternatives --install /usr/bin/vim vim /usr/local/bin/nvim 60
+    sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 60
+}
+
 # Function to install packages based on environment
 install_packages() {
     local env_type="$1"
@@ -338,27 +421,8 @@ install_packages() {
             ;;
     esac
     
-  print_status "Installing Neovim (unstable version)..."
-    if ! command_exists nvim; then
-        # Add Neovim PPA for unstable version
-        sudo add-apt-repository ppa:neovim-ppa/unstable -y
-        sudo apt update
-        sudo apt install -y neovim
-        print_success "Neovim unstable installed"
-    else
-        print_status "Neovim already installed. Checking if we need to upgrade to unstable..."
-        # Check if we're using stable PPA and switch to unstable
-        if grep -q "ppa:neovim-ppa/stable" /etc/apt/sources.list.d/neovim-ppa-ubuntu-*.list 2>/dev/null; then
-            print_status "Switching from stable to unstable Neovim PPA..."
-            sudo add-apt-repository --remove ppa:neovim-ppa/stable -y
-            sudo add-apt-repository ppa:neovim-ppa/unstable -y
-            sudo apt update
-            sudo apt install -y neovim
-            print_success "Neovim upgraded to unstable version"
-        else
-            print_success "Neovim already installed"
-        fi
-    fi   
+    # Install Neovim from source (moved to separate function)
+    install_neovim_from_source
 }
 
 # Function to install environment-specific tools
@@ -575,6 +639,7 @@ display_final_messages() {
     echo "  - Languages: Zig, PHP, JS/TS, Python 3, C/C++, Ruby, Go, Rust are installed"
     echo "  - Tmux: TPM installed. Use 'Prefix + I' to install plugins, 'Prefix + U' to update them"
     echo "  - Your tmux prefix is set to Ctrl+Space (not the default Ctrl+b)"
+    echo "  - Neovim: Built from latest master source for cutting-edge features"
     
     if [[ "$env_type" == "desktop" ]]; then
         echo "  - Kitty: Terminal emulator installed with desktop integration"
@@ -629,3 +694,4 @@ main() {
 
 # Run main function
 main "$@"
+
