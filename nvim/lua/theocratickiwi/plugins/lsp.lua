@@ -44,7 +44,7 @@ return {
             -- Setup mason-lspconfig with the servers you want to install
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "denols", -- JavaScript and TypeScript
+                    "ts_ls", -- JavaScript and TypeScript
                     "clangd", -- C/C++
                     "sqlls", -- SQL
                     "lua_ls", --lua
