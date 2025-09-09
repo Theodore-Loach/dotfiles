@@ -634,6 +634,7 @@ display_final_messages() {
     echo "  Please create a .anthropic_key file to enable codecompanion integration"
     echo
     print_warning "Additional notes:"
+    echo "  - ssh: your .zshrc expect a key 'id_ed25519' on start, please create or disable this code"
     echo "  - Docker: You may need to log out/in for Docker group permissions"
     echo "  - NVM: Latest LTS Node.js has been installed with TypeScript support"
     echo "  - Languages: Zig, PHP, JS/TS, Python 3, C/C++, Ruby, Go, Rust are installed"
