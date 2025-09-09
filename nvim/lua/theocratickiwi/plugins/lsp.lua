@@ -52,6 +52,7 @@ return {
                     "intelephense", --php
                     "tailwindcss", -- Tailwind CSS
                     "pyright", -- Python
+                    "typos_lsp", -- Spelling
                 },
                 handlers = {
                     -- Default handler for most servers
@@ -142,16 +143,16 @@ return {
                     end,
                 },
             })
-            
+
             -- Setup mason-null-ls to automatically install formatters
             require("mason-null-ls").setup({
                 ensure_installed = {
-                    "stylua",      -- Lua formatter
-                    "prettier",    -- JS/TS/CSS/JSON formatter
+                    "stylua", -- Lua formatter
+                    "prettier", -- JS/TS/CSS/JSON formatter
                     "php-cs-fixer", -- PHP formatter (note the hyphen)
                     "blade-formatter", -- Blade formatter (note the hyphen)
-                    "black",       -- Python formatter
-                    "isort",       -- Python import sorter
+                    "black", -- Python formatter
+                    "isort", -- Python import sorter
                 },
                 automatic_installation = true,
             })
