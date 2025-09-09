@@ -144,3 +144,8 @@ alias lzd='lazydocker'
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:$HOME/go/bin
 export ANTHROPIC_API_KEY=$(cat ~/dotfiles/.anthropic_key)
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+    eval $(ssh-agent -s)
+    ssh-add ~/.ssh/id_ed25519  # or whatever your key is named
+fi
