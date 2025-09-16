@@ -145,7 +145,14 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:$HOME/go/bin
 export ANTHROPIC_API_KEY=$(cat ~/dotfiles/.anthropic_key)
 
+export SSH_ASKPASS=""
+export SSH_ASKPASS_REQUIRE=never
+export DISPLAY=""
+
+# SSH Agent for WSL2 - prompts for passphrase in terminal
 if [ -z "$SSH_AUTH_SOCK" ]; then
     eval $(ssh-agent -s)
-    ssh-add ~/.ssh/id_ed25519  # or whatever your key is named
+    if [ -f ~/.ssh/id_ed25519 ]; then
+       ssh-add ~/.ssh/id_ed25519
+    fi
 fi
