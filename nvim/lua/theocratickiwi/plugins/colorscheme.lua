@@ -149,7 +149,6 @@ return {
         functions = "bold",
         keywords = "italic",
         comments = "italic",
-        parameters = "italic",
         conditionals = "italic",
         virtual_text = "italic",
         operators = "italic",
