@@ -24,7 +24,7 @@ config.font_rules = {
   {
     intensity = 'Normal',
     italic = false,
-    font = wezterm.font('FiraCode Nerd Font', { weight = 'Regular' }),
+    font = wezterm.font('FiraCode Nerd Font', { weight = 450 }),
   },
   -- Bold text
   {
