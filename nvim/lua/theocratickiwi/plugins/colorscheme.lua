@@ -152,6 +152,7 @@ return {
         parameters = "italic",
         conditionals = "italic",
         virtual_text = "italic",
+        operators = "italic",
       },
       options = {
         cursorline = true,
