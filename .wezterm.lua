@@ -30,7 +30,7 @@ config.font_rules = {
   {
     intensity = 'Bold',
     italic = false,
-    font = wezterm.font('FiraCode Nerd Font', { weight = 'Bold' }),
+    font = wezterm.font('FiraCode Nerd Font', { weight = 'Medium' }),
   },
   -- Italic text - Use Medium Italic with explicit attributes
   {
