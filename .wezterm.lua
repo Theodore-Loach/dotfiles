@@ -36,13 +36,13 @@ config.font_rules = {
   {
     intensity = 'Normal',
     italic = true,
-    font = wezterm.font('Operator Mono', { weight = 'DemiLight', style = 'Italic' }),
+    font = wezterm.font('Operator Mono SSm Lig', { weight = 'Medium', style = 'Italic' }),
   },
   -- Bold italic text - Use Bold Italic with explicit attributes
   {
     intensity = 'Bold',
     italic = true,
-    font = wezterm.font('Operator Mono', { weight = 'Bold', style = 'Italic' }),
+    font = wezterm.font('Operator Mono SSm Lig', { weight = 'Bold', style = 'Italic' }),
   },
 }
 
