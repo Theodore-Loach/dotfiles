@@ -74,7 +74,7 @@ return {
 			return require("codecompanion.adapters").extend("anthropic", {
 				schema = {
 					model = {
-						default = "claude-sonnet-4-20250514",
+						default = "claude-sonnet-4-5",
 					},
 				},
 			})
