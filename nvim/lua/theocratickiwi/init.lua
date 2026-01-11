@@ -10,9 +10,15 @@ vim.opt.termguicolors = true
 vim.cmd.colorscheme("onedark")
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    pattern = "*.blade.php",
-    callback = function()
-        vim.bo.filetype = "blade"
-    end,
+	pattern = "*.blade.php",
+	callback = function()
+		vim.bo.filetype = "blade"
+	end,
 })
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*/profiles.yml", "*.yaml", "*.yml" },
+	callback = function()
+		vim.bo.filetype = "yaml"
+	end,
+})

@@ -1,16 +1,15 @@
 return {
 	"olimorris/codecompanion.nvim",
     keys = {
-        -- EXISTING CHAT KEYMAPS
+        -- Chat keymaps
         { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle Code Companion Chat" },
         { "<leader>cn", "<cmd>CodeCompanionChat<cr>", desc = "New Code Companion Chat"},
         { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode="v", desc = "Code Companion Actions"},
         
-        -- ✨ ENHANCED INLINE EDITING KEYMAPS WITH NOTIFICATIONS
+        -- Inline editing keymaps
         { "<leader>ci", function()
             vim.ui.input({ prompt = "CodeCompanion instruction: " }, function(input)
                 if input and input ~= "" then
-                    -- Show start notification
                     vim.notify("🤖 CodeCompanion processing: " .. input, vim.log.levels.INFO)
                     vim.cmd("'<,'>CodeCompanion " .. input)
                 end
@@ -32,9 +31,7 @@ return {
             vim.cmd("'<,'>CodeCompanion /refactor")
         end, mode = "v", desc = "Refactor Selected Code" },
         
-        -- ✨ ACCEPT/REJECT CHANGES (built-in keymaps, just documented here)
-        -- ga - Accept changes (built-in)
-        -- gr - Reject changes (built-in)
+        -- Built-in keymaps: ga (accept changes), gr (reject changes)
     },
     opts = {
         extensions = {
@@ -77,6 +74,10 @@ return {
 						default = "claude-sonnet-4-5",
 					},
 				},
+                opts = {
+                    cache_breakpoints = 4,
+                    cache_over = 300,
+                }
 			})
 		end,
 	},
