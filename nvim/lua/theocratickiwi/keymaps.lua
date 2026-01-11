@@ -23,7 +23,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 --When pasting over another word in visual mode, keep the original word.
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
---System clipboard yanking (pretty sure i have somthing else that makes all yanking got to system clipboard anyway)
+--System clipboard yanking (pretty sure i have somthing else that makes all yanking got to system clipboard anyway) - WSL when in TMUX regular yanking carries over to windows clipboard. Dont use these.
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
