@@ -27,7 +27,10 @@ return {
 				null_ls.builtins.formatting.blade_formatter,
 				null_ls.builtins.formatting.black,
 				null_ls.builtins.formatting.isort,
-				null_ls.builtins.formatting.sqlfluff,
+				null_ls.builtins.formatting.sqlfluff.with({
+                    filetypes = { "sql" },
+                    extra_args = { "--dialect", "snowflake"},
+                }),
 			},
 		})
 		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})

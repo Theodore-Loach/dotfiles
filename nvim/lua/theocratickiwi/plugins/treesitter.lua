@@ -14,7 +14,7 @@ return {
             filetype = "blade",
         }
 		require("nvim-treesitter.configs").setup({
-			ensure_installed = { "lua", "javascript","c", "php", "python"},
+			ensure_installed = { "lua", "javascript","c", "php", "python", "jinja", "sql"},
 
 			highlight = {
 				enable = true,

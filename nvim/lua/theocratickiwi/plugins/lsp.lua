@@ -2,11 +2,9 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			-- LSP Support
-			{ "neovim/nvim-lspconfig" }, -- Required
-			{ "mason-org/mason.nvim" }, -- Optional: Mason for managing LSP servers
-			{ "mason-org/mason-lspconfig.nvim" }, -- Optional: Automatically set up LSP servers with Mason
-			{ "jay-babu/mason-null-ls.nvim" }, -- Add this dependency for automatic null-ls tool installation
+			{ "mason-org/mason.nvim" },
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim" },
+			{ "jay-babu/mason-null-ls.nvim" },
 		},
 		config = function()
 			-- Setup diagnostic signs
@@ -33,6 +31,9 @@ return {
 				},
 			})
 
+			-- Define capabilities
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 			-- Define on_attach function
 			local on_attach = function(client, bufnr)
 				vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -41,129 +42,170 @@ return {
 			-- Setup mason
 			require("mason").setup({})
 
-			-- Setup mason-lspconfig with the servers you want to install
-			require("mason-lspconfig").setup({
+			-- Auto-install LSP servers using mason-tool-installer
+			require("mason-tool-installer").setup({
 				ensure_installed = {
-					"ts_ls", -- JavaScript and TypeScript
-					"clangd", -- C/C++
-					"sqlls", -- SQL
-					"lua_ls", --lua
-					"omnisharp", --c#
-					"intelephense", --php
-					"tailwindcss", -- Tailwind CSS
-					"pyright", -- Python
-					"typos_lsp", -- Spelling
+					-- LSP Servers
+					"typescript-language-server",
+					"clangd",
+					"lua-language-server",
+					"omnisharp",
+					"intelephense",
+					"tailwindcss-language-server",
+					"pyright",
+					"typos-lsp",
+					-- Formatters/Linters
+					"stylua",
+					"prettier",
+					"php-cs-fixer",
+					"blade-formatter",
+					"black",
+					"isort",
+					"sqlfluff",
 				},
-				handlers = {
-					-- Default handler for most servers
-					function(server_name)
-						require("lspconfig")[server_name].setup({
-							-- You can add default capabilities here if needed
-							capabilities = require("cmp_nvim_lsp").default_capabilities(),
-							on_attach = on_attach,
-						})
-					end,
+				auto_update = false,
+				run_on_start = true,
+			})
 
-					-- Custom handler for intelephense
-					["intelephense"] = function()
-						require("lspconfig").intelephense.setup({
-							capabilities = require("cmp_nvim_lsp").default_capabilities(),
-							on_attach = on_attach,
-							root_dir = require("lspconfig").util.root_pattern(
-								"composer.json",
-								"composer.lock",
-								"vendor",
-								".git",
-								"artisan" -- For Laravel projects
-							),
-							filetypes = { "php", "blade", "php_only" },
-							settings = {
-								intelephense = {
-									telemetry = {
-										enabled = false,
-									},
-									filetypes = { "php", "blade", "php_only" },
-									files = {
-										associations = {
-											"*.php",
-											"*.blade.php",
-											"_ide_helper.php",
-											"_ide_helper_models.php",
-										},
-										maxSize = 5000000,
-									},
-									stubs = {
-										"laravel",
-										"eloquent",
-										"laravel-ide-helper",
-										"auth",
-									},
-									diagnostics = {
-										enable = true,
-										run = "onType",
-										embeddedLanguages = true,
-									},
-									completion = {
-										insertUseDeclaration = true,
-										fullyQualifyGlobalConstantsAndFunctions = false,
-									},
-									enviroment = {
-										documentRoot = vim.fn.getcwd(),
-										includePaths = { vim.fn.getcwd() .. "/vendor" },
-									},
-								},
+			-- Configure intelephense for PHP
+			vim.lsp.config("intelephense", {
+				cmd = { "intelephense", "--stdio" },
+				filetypes = { "php", "blade", "php_only" },
+				root_markers = { "composer.json", ".git" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+				settings = {
+					intelephense = {
+						telemetry = { enabled = false },
+						files = {
+							associations = {
+								"*.php",
+								"*.blade.php",
+								"_ide_helper.php",
+								"_ide_helper_models.php",
 							},
-						})
-					end,
-
-					-- Custom handler for tailwindcss
-					["tailwindcss"] = function()
-						require("lspconfig").tailwindcss.setup({
-							capabilities = require("cmp_nvim_lsp").default_capabilities(),
-							on_attach = on_attach,
-							root_dir = require("lspconfig").util.root_pattern(
-								"tailwind.config.js",
-								"tailwind.config.ts",
-								"postcss.config.js",
-								"postcss.config.ts",
-								"package.json",
-								".git"
-							),
-							settings = {
-								tailwindCSS = {
-									experimental = {
-										classRegex = {
-											"@?class\\(([^]*)\\)",
-											"'([^']*)'",
-										},
-									},
-								},
-							},
-						})
-					end,
-
-					["dbt"] = function()
-						require("lspconfig").dbt.setup({
-							capabilities = require("cmp_nvim_lsp").default_capabilities(),
-							on_attach = on_attach,
-							cmd = { "dbt-core-interface" },
-							filetypes = { "sql", "md", "yaml" },
-							root_dir = require("lspconfig").util.root_pattern("dbt_project.yaml"),
-						})
-					end,
+							maxSize = 5000000,
+						},
+						stubs = {
+							"laravel",
+							"eloquent",
+							"laravel-ide-helper",
+							"auth",
+						},
+						diagnostics = {
+							enable = true,
+							run = "onType",
+							embeddedLanguages = true,
+						},
+						completion = {
+							insertUseDeclaration = true,
+							fullyQualifyGlobalConstantsAndFunctions = false,
+						},
+						environment = {
+							documentRoot = vim.fn.getcwd(),
+							includePaths = { vim.fn.getcwd() .. "/vendor" },
+						},
+					},
 				},
 			})
 
-			-- Setup mason-null-ls to automatically install formatters
+			-- Configure TypeScript/JavaScript
+			vim.lsp.config("ts_ls", {
+				cmd = { "typescript-language-server", "--stdio" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Configure C/C++
+			vim.lsp.config("clangd", {
+				cmd = { "clangd" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Configure Lua
+			vim.lsp.config("lua_ls", {
+				cmd = { "lua-language-server" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Configure SQL
+			vim.lsp.config("sqlls", {
+				cmd = { "sql-language-server", "up", "--method", "stdio" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Configure dbt-language-server
+			vim.lsp.config("dbt", {
+				cmd = { "dbt-language-server" },
+				filetypes = { "sql", "md", "yaml" },
+				root_markers = { "dbt_project.yml" },
+				capabilities = capabilities,
+				on_attach = function(client, bufnr)
+					on_attach(client, bufnr)
+					vim.notify("dbt-language-server attached to buffer " .. bufnr, vim.log.levels.INFO)
+				end,
+				settings = {
+					dbt = {
+						dbtPath = "dbt",
+						profilesPath = vim.fn.expand("~/.dbt/profiles.yml"),
+					},
+				},
+			})
+			-- Configure C#
+			vim.lsp.config("omnisharp", {
+				cmd = { "OmniSharp" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Configure Python
+			vim.lsp.config("pyright", {
+				cmd = { "pyright-langserver", "--stdio" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Configure spell checking
+			vim.lsp.config("typos_lsp", {
+				cmd = { "typos-lsp" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Configure Tailwind CSS
+			vim.lsp.config("tailwindcss", {
+				cmd = { "tailwindcss-language-server", "--stdio" },
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+
+			-- Enable all LSP servers
+			vim.lsp.enable({
+				"sqlls",
+				"dbt",
+				"intelephense",
+				"ts_ls",
+				"clangd",
+				"lua_ls",
+				"omnisharp",
+				"pyright",
+				"typos_lsp",
+				"tailwindcss",
+			})
+
+			-- Setup mason-null-ls for formatters and linters
 			require("mason-null-ls").setup({
 				ensure_installed = {
-					"stylua", -- Lua formatter
-					"prettier", -- JS/TS/CSS/JSON formatter
-					"php-cs-fixer", -- PHP formatter (note the hyphen)
-					"blade-formatter", -- Blade formatter (note the hyphen)
-					"black", -- Python formatter
-					"isort", -- Python import sorter
-					"sqlfluff", -- SQL with Jinja
+					"stylua",
+					"prettier",
+					"php-cs-fixer",
+					"blade-formatter",
+					"black",
+					"isort",
+					"sqlfluff",
 				},
 				automatic_installation = true,
 			})
