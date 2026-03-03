@@ -185,7 +185,6 @@ return {
 			-- Enable all LSP servers
 			vim.lsp.enable({
 				"sqlls",
-				"dbt",
 				"intelephense",
 				"ts_ls",
 				"clangd",
