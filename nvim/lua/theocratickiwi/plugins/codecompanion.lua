@@ -10,7 +10,6 @@ return {
 			mode = "v",
 			desc = "Code Companion Actions",
 		},
-
 		-- Inline editing keymaps
 		{
 			"<leader>ci",
@@ -25,7 +24,6 @@ return {
 			mode = "v",
 			desc = "Custom CodeCompanion Prompt",
 		},
-
 		{
 			"<leader>cf",
 			function()
@@ -35,7 +33,6 @@ return {
 			mode = "v",
 			desc = "Fix Selected Code",
 		},
-
 		{
 			"<leader>ce",
 			function()
@@ -45,7 +42,6 @@ return {
 			mode = "v",
 			desc = "Explain Selected Code",
 		},
-
 		{
 			"<leader>cr",
 			function()
@@ -55,7 +51,6 @@ return {
 			mode = "v",
 			desc = "Refactor Selected Code",
 		},
-
 		-- Built-in keymaps: ga (accept changes), gr (reject changes)
 	},
 	opts = {
@@ -75,12 +70,13 @@ return {
 		strategies = {
 			chat = {
 				adapter = "copilot",
+                model = "claude-sonnet-4.6",
 			},
 			inline = {
 				adapter = "copilot",
 			},
 			opts = {
-				log_level = "DEBUG",
+				log_level = "ERROR",
 			},
 		},
 		display = {
@@ -88,14 +84,15 @@ return {
 				provider = "mini_diff",
 			},
 		},
-		send_code = true,
+		send_code = false,
 		use_default_actions = true,
 		adapters = {
-			anthropic = function()
-				return require("codecompanion.adapters").extend("colpilot", {
+			copilot = function()
+				return require("codecompanion.adapters").extend("copilot", {
 					schema = {
 						model = {
-							default = "gpt-5.3-codex",
+							default = "claude-sonnet-4.6",
+                            choices = {"claude-sonnet-4.6"},
 						},
 					},
 				})

@@ -155,4 +155,7 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
     if [ -f ~/.ssh/id_ed25519 ]; then
        ssh-add ~/.ssh/id_ed25519
     fi
+    if [ -f ~/.ssh/id_ed25519_sandbox ]; then
+        ssh-add ~/.ssh/id_ed25519_sandbox
+    fi
 fi
