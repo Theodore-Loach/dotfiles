@@ -70,7 +70,6 @@ return {
 		strategies = {
 			chat = {
 				adapter = "copilot",
-                model = "claude-sonnet-4.6",
 			},
 			inline = {
 				adapter = "copilot",
@@ -86,18 +85,6 @@ return {
 		},
 		send_code = false,
 		use_default_actions = true,
-		adapters = {
-			copilot = function()
-				return require("codecompanion.adapters").extend("copilot", {
-					schema = {
-						model = {
-							default = "claude-sonnet-4.6",
-                            choices = {"claude-sonnet-4.6"},
-						},
-					},
-				})
-			end,
-		},
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
