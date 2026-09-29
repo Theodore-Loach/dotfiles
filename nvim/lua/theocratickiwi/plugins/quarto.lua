@@ -35,7 +35,7 @@ return {
 				},
 			})
 
-			-- Set up runner keymaps
+			-- Set up runner keymaps (filetype-scoped, stay here — not in keymaps.lua)
 			local runner = require("quarto.runner")
 			vim.keymap.set("n", "<localleader>rc", runner.run_cell, { desc = "run cell", silent = true })
 			vim.keymap.set("n", "<localleader>ra", runner.run_above, { desc = "run cell and above", silent = true })

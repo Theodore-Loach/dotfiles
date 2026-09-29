@@ -24,15 +24,20 @@ return {
 					},
 				}),
 				null_ls.builtins.formatting.phpcsfixer,
-				null_ls.builtins.formatting.blade_formatter,
-				null_ls.builtins.formatting.black,
-				null_ls.builtins.formatting.isort,
+				null_ls.builtins.formatting.blade_formatter.with({
+					filetypes = { "blade" }, -- keep prettier away from blade templates
+				}),
+				-- Python is handled by the ruff LSP (lint/format/imports) — no black/isort
 				null_ls.builtins.formatting.sqlfluff.with({
                     filetypes = { "sql" },
                     extra_args = { "--dialect", "snowflake"},
                 }),
+				null_ls.builtins.diagnostics.sqlfluff.with({
+					filetypes = { "sql" },
+					extra_args = { "--dialect", "snowflake" },
+				}),
 			},
 		})
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+		-- Keymaps live in lua/theocratickiwi/keymaps.lua (<leader>gf)
 	end,
 }

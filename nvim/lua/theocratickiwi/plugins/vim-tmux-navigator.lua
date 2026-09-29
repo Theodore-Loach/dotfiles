@@ -1,7 +1,10 @@
+-- Keymaps live in lua/theocratickiwi/keymaps.lua
 return {
   "christoomey/vim-tmux-navigator",
-  vim.keymap.set('n', 'C-h', ':TmuxNavigateLeft'),
-  vim.keymap.set('n', 'C-l', ':TmuxNavigateRight'),
-  vim.keymap.set('n', 'C-j', ':TmuxNavigateDown'),
-  vim.keymap.set('n', 'C-k', ':TmuxNavigateUp'),
+  cmd = {
+    "TmuxNavigateLeft",
+    "TmuxNavigateDown",
+    "TmuxNavigateUp",
+    "TmuxNavigateRight",
+  },
 }

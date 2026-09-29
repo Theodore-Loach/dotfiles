@@ -1,6 +1,5 @@
+-- Keymaps live in lua/theocratickiwi/keymaps.lua (<leader>gs)
 return {
 	"tpope/vim-fugitive",
-	keys = {
-		{"<leader>gs", "<cmd>Git<CR>", desc = "Open Git Status" }
-	}
+	cmd = "Git",
 }

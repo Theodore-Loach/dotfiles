@@ -14,6 +14,7 @@ return {
         dependencies = {
             { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
             { "onsails/lspkind.nvim" }, -- Optional: For VSCode-like pictograms
+            { "hrsh7th/cmp-cmdline" }, -- : and / completion
         },
         config = function()
             local cmp = require("cmp")
@@ -33,7 +34,7 @@ return {
                 mapping = cmp.mapping.preset.insert({
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-S>"] = cmp.mapping.complete(),
+                    ["<C-Space>"] = cmp.mapping.complete(), -- was <C-S> (terminals swallow it)
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
@@ -56,6 +57,24 @@ return {
                         return require("tailwindcss-colorizer-cmp").formatter(entry, item)
                     end,
                 },
+            })
+
+            -- / search completion from buffer text
+            cmp.setup.cmdline({ "/", "?" }, {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = "buffer" },
+                },
+            })
+
+            -- : command line completion (commands + paths)
+            cmp.setup.cmdline(":", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = "path" },
+                }, {
+                    { name = "cmdline" },
+                }),
             })
         end,
     },

@@ -143,7 +143,6 @@ alias sail='[ -f sail ] && bash sail || bash ./vendor/bin/sail'
 alias lzd='lazydocker'
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:$HOME/go/bin
-export ANTHROPIC_API_KEY=$(cat ~/dotfiles/.anthropic_key)
 
 export SSH_ASKPASS=""
 export SSH_ASKPASS_REQUIRE=never
@@ -159,3 +158,5 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
         ssh-add ~/.ssh/id_ed25519_sandbox
     fi
 fi
+
+export PATH="$HOME/.local/bin:$PATH"

@@ -142,82 +142,8 @@ return {
         vim.api.nvim_set_hl(0, "SnacksPickerCount", { fg = "#89b4fa" })
 
         local picker = require("snacks").picker
-
-        vim.keymap.set("n", "<leader>pf", function()
-            picker.files()
-        end, { desc = "Find Files" })
-
-        vim.keymap.set("n", "<C-p>", function()
-            picker.git_files()
-        end, { desc = "Find Git Files" })
-
-        vim.keymap.set("n", "<leader>ps", function()
-            local search = vim.fn.input("Grep > ")
-            if search ~= "" then
-                picker.grep({ search = search })
-            end
-        end, { desc = "Grep String" })
-
-        vim.keymap.set("n", "gd", function()
-            picker.lsp_definitions()
-        end, { desc = "Go to Definition" })
-
-        vim.keymap.set("n", "gi", function()
-            picker.lsp_implementations()
-        end, { desc = "Go to implementation" })
-
-        vim.keymap.set("n", "gr", function()
-            picker.lsp_references()
-        end, { desc = "Go to references" })
-
-        vim.keymap.set("n", "<leader>ws", function()
-            picker.lsp_workspace_symbols()
-        end, { desc = "Search workspace symbols" })
-
-        vim.keymap.set("n", "<leader>ds", function()
-            picker.lsp_document_symbols()
-        end, { desc = "Search document symbols" })
-
-        vim.keymap.set("n", "<leader>dd", function()
-            picker.diagnostics()
-        end, { desc = "Show All Diagnostics" })
-
-        vim.keymap.set("n", "<leader>nh", function()
-            require("snacks").notifier.show_history()
-        end, { desc = "Show Notification History" })
-
-        vim.keymap.set("n", "<leader>mm", ":messages<CR>", { desc = "Show Messages" })
-        vim.keymap.set("n", "<leader>qf", ":copen<CR>", { desc = "Open Quickfix" })
-        vim.keymap.set("n", "<leader>ll", ":lopen<CR>", { desc = "Open Location List" })
+        -- Keymaps live in lua/theocratickiwi/keymaps.lua
     end,
-    keys = {
-        {
-            "<C-x>",
-            function()
-                require("snacks").terminal.toggle()
-            end,
-            mode = { "n", "t" },
-            desc = "Toggle Terminal",
-        },
-        {
-            "<leader>bd",
-            function()
-                require("snacks").bufdelete()
-            end,
-            desc = "Delete Buffer",
-        },
-        {
-            "<leader>l",
-            function()
-                require("snacks").lazygit()
-            end,
-            desc = "Open Lazygit",
-        },
-        {
-            "<Esc>",
-            "<C-\\><C-n>",
-            mode = "t",
-            desc = "Exit terminal mode",
-        },
-    },
+    -- lazy-load on these commands; keys trigger via keymaps.lua
+    cmd = { "Snacks" },
 }

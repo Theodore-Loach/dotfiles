@@ -1,7 +1,6 @@
+-- Keymaps live in lua/theocratickiwi/keymaps.lua (<leader>u)
 return {
     "mbbill/undotree",
-    keys = {
-        { "<leader><F5>", "<cmd>UndotreeToggle<CR>", desc = "Toggle UndoTree" }
-    }
+    cmd = "UndotreeToggle",
 }
 
