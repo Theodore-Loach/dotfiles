@@ -38,11 +38,11 @@
         // errors/warnings
         {
             "before" : ["[", "d"],
-            "command" : ["editor.action.marker.prev"]
+            "commands" : ["editor.action.marker.prev"]
         },
         {
             "before" : ["]", "d"],
-            "command" : ["editor.action.marker.next"]
+            "commands" : ["editor.action.marker.next"]
         },
 
         //End Navigation
@@ -69,7 +69,7 @@
     "vim.visualModeKeyBindings": [
         //Indenting while in visual mode
         { "before" : ["<"], "commands" : ["editor.action.outdentLines"]},
-        { "before" : [">"], "commands" : ["editor.action.indentlines"]},
+        { "before" : [">"], "commands" : ["editor.action.indentLines"]},
 
         //Move selected lines while in visual mode
         { "before" : ["J"], "commands" : ["editor.action.moveLinesDownAction"]},
@@ -81,13 +81,13 @@
 
     // Font
     "editor.fontLigatures": true,
-    "editor.fontFamily": "Fira Code",
+    "editor.fontFamily": "FiraCode Nerd Font",
 
     // Visual Settings - VSCode
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": "active",
     "workbench.colorTheme": "Catppuccin Mocha",
-    "terminal.integrated.fontFamily": "Fira Code ",
+    "terminal.integrated.fontFamily": "FiraCode Nerd Font",
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.preferredHighContrastColorTheme": "Catppuccin Mocha",
     "workbench.preferredHighContrastLightColorTheme": "Catppuccin Mocha",

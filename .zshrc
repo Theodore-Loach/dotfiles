@@ -1,3 +1,25 @@
+# SSH Agent for WSL2. Keep passphrase prompts before Powerlevel10k instant prompt.
+export SSH_ASKPASS=""
+export SSH_ASKPASS_REQUIRE=never
+if [[ -d "$HOME/.ssh" ]]; then
+    agent_file="$HOME/.ssh/agent.env"
+    if [[ -z "${SSH_AUTH_SOCK:-}" || ! -S "$SSH_AUTH_SOCK" ]]; then
+        [[ ! -r "$agent_file" ]] || source "$agent_file" >/dev/null
+    fi
+    if [[ -z "${SSH_AUTH_SOCK:-}" || ! -S "$SSH_AUTH_SOCK" ]]; then
+        (umask 077; ssh-agent -s > "$agent_file")
+        chmod 600 "$agent_file"
+        source "$agent_file" >/dev/null
+    fi
+    if [[ -S "${SSH_AUTH_SOCK:-}" ]]; then
+        for key in "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ed25519_sandbox"; do
+            if [[ -f "$key" && -f "$key.pub" ]] && ! ssh-add -T "$key.pub" >/dev/null 2>&1; then
+                ssh-add "$key"
+            fi
+        done
+    fi
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -77,7 +99,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting sudo docker npm node pip virtualenv fzf history tmux)
+plugins=(git zsh-autosuggestions sudo docker npm node pip virtualenv fzf history tmux zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -113,8 +135,9 @@ alias vim='nvim'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/opt/nvim-linux64/bin:$PATH"
+[[ ! -s "$NVM_DIR/nvm.sh" ]] || nvm use --silent default >/dev/null 2>&1 || true
+export EDITOR=nvim
+export VISUAL="$EDITOR"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -123,7 +146,7 @@ export PATH="/opt/nvim-linux64/bin:$PATH"
 export PATH=$PATH:/snap/bin
 
 # Add laravel:
-export PATH="$PATH:/home/ubuntu/.config/composer/vendor/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
 # Maven
 # export M2_HOME=/usr/local/apache-maven
@@ -132,31 +155,14 @@ export PATH="$PATH:/home/ubuntu/.config/composer/vendor/bin"
 
 #Functions for easy copy and paste
 function copyfile() {
-    realpath "$1" | xclip -selection clipboard
+    realpath -- "$1" | xclip -selection clipboard
 }
 
 function pastefile() {
-    cp $(xclip -o -selection clipboard) .
+    cp -- "$(xclip -o -selection clipboard)" .
 }
 
 alias sail='[ -f sail ] && bash sail || bash ./vendor/bin/sail'
 alias lzd='lazydocker'
 export PATH="$HOME/.local/bin:$PATH"
-export PATH=$PATH:$HOME/go/bin
-
-export SSH_ASKPASS=""
-export SSH_ASKPASS_REQUIRE=never
-export DISPLAY=""
-
-# SSH Agent for WSL2 - prompts for passphrase in terminal
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval $(ssh-agent -s)
-    if [ -f ~/.ssh/id_ed25519 ]; then
-       ssh-add ~/.ssh/id_ed25519
-    fi
-    if [ -f ~/.ssh/id_ed25519_sandbox ]; then
-        ssh-add ~/.ssh/id_ed25519_sandbox
-    fi
-fi
-
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/go/bin:$PATH"

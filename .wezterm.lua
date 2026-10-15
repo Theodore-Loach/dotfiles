@@ -130,14 +130,13 @@ config.animation_fps = 60
 -- Show window title in tab bar
 config.show_tab_index_in_tab_bar = false
 
--- Set default shell (change this to your preferred default)
--- Options: 'powershell', 'pwsh', 'wsl', 'cmd'
-config.default_prog = { "C:/WINDOWS/system32/wsl.exe", "-d", "Ubuntu-22.04" }
+-- wsl.exe starts the distro configured by `wsl --set-default`.
+config.default_prog = { "wsl.exe", "~" }
 
 config.launch_menu = {
 	{
-		label = "Ubuntu 22.04 (WSL) - Home",
-		args = { "C:/WINDOWS/system32/wsl.exe", "-d", "Ubuntu-22.04" },
+		label = "Ubuntu WSL (default distribution)",
+		args = { "wsl.exe", "~" },
 	},
 	{
 		label = "PowerShell 7",
